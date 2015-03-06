@@ -1,0 +1,19 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title its-a-cookbook - a recipe sharing app
+    %meta(charset="UTF-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    = csrf_meta_tag
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  %body
+    %header
+      = render 'shared/header'
+    .container
+      .row
+        = yield
+    %hr
+    %footer
+      &copy 2015 its-a-cookbook

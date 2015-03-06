@@ -14,3 +14,39 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap.min";
+ @import "font-awesome";
+
+footer {
+  text-align: center;
+}
+
+.main-nav {
+  margin-bottom: 5%;
+}
+
+.favorites {
+  margin-bottom: 20px;
+}
+
+.recipe-title,
+.recipe-author,
+.category-title {
+  text-align: center;
+  color: #dd4814;
+}
+
+.category-title {
+  margin-bottom: 3%;
+}
+
+.recipe-author {
+  margin-bottom: 2%;
+}
+
+.search-bar {
+  margin-bottom: 4%;
+}
+
+.table > tbody > tr > td {
+  border-top: none;
+}

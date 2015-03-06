@@ -1,0 +1,40 @@
+.col-md-6.col-md-offset-3
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Create a New Recipe
+
+    .panel-body
+      %form
+        .form-group
+          %label Name of the dish:
+          %input(type="text" class="form-control" placeholder="e.g. Greatest Pizza Ever")
+
+        .form-group
+          %label Ingredients:
+          %textarea.form-control(rows="4" placeholder="Ingredients separated by semicolon, e.g. two eggs; grated cheese;")
+
+        .form-group
+          %label Directions:
+          %textarea.form-control(rows="8" placeholder="Step by step instructions")
+
+        .form-group
+          Categories:
+          .checkbox
+            %label
+              %input(type="checkbox" value="")
+              Starters
+            %label
+              %input(type="checkbox" value="")
+              Main Courses
+            %label
+              %input(type="checkbox" value="")
+              Desserts
+            %label
+              %input(type="checkbox" value="")
+              Breakfast
+            %label
+              %input(type="checkbox" value="")
+              Quick meal
+
+
+        %button(type="submit" class="btn btn-default") Submit
