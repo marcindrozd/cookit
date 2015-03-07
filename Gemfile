@@ -13,8 +13,22 @@ gem "font-awesome-rails"
 gem 'pg'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-gem 'spring',        group: :development
-
 group :production do
   gem 'rails_12factor'
+end
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'rspec-rails', '2.99'
+  gem 'spring'
+  gem 'fabrication'
+  gem 'faker'
+end
+
+group :test do
+  gem 'database_cleaner', '1.2.0'
+  gem 'shoulda-matchers', require: false
+  gem 'capybara'
+  gem 'launchy'
 end

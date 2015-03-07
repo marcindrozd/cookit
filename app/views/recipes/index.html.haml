@@ -1,0 +1,42 @@
+.row.search-bar
+  .col-md-8.col-md-offset-2
+    .input-group
+      %input(type="search" class="form-control" placeholder="Search for recipe...")
+      %span.input-group-btn
+        %button(type="submit" class="btn btn-primary") Search
+
+.category-title
+  %h2 Newest Recipes by Category:
+
+.col-md-4
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Starters
+
+    .panel-body
+      %ul
+        %li Prawn Cocktails
+        %li Flaming Tapas
+        %li Super Tasty Sandwiches
+
+.col-md-4
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Main Courses
+
+    .panel-body
+      %ul
+        %li Giant Steak
+        %li Homemade Hamburgers
+        %li Spaghetti Carbonara
+
+.col-md-4
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Desserts
+
+    .panel-body
+      %ul
+        %li Fabulous Ice Cream
+        %li A bowl of fruit
+        %li Sweet melting Chocolate
