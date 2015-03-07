@@ -1,0 +1,2 @@
+Fabricator(:recipe) do
+end

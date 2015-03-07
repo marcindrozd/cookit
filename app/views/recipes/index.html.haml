@@ -1,42 +1,21 @@
 .row.search-bar
   .col-md-8.col-md-offset-2
-    .input-group
-      %input(type="search" class="form-control" placeholder="Search for recipe...")
-      %span.input-group-btn
-        %button(type="submit" class="btn btn-primary") Search
+    = form_tag search_recipes_path, method: "get", enforce_utf8: false do
+      .input-group
+        = text_field_tag(:recipe, nil, class: "form-control", placeholder: "Search for recipe...", value: params[:recipe])
+        %span.input-group-btn
+          %button(type="submit" class="btn btn-primary") Search
 
 .category-title
   %h2 Newest Recipes by Category:
 
-.col-md-4
-  .panel.panel-primary
-    .panel-heading
-      %h3.panel-title Starters
+- @categories.each do |category|
+  .col-md-4
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title #{category.name}
 
-    .panel-body
-      %ul
-        %li Prawn Cocktails
-        %li Flaming Tapas
-        %li Super Tasty Sandwiches
-
-.col-md-4
-  .panel.panel-primary
-    .panel-heading
-      %h3.panel-title Main Courses
-
-    .panel-body
-      %ul
-        %li Giant Steak
-        %li Homemade Hamburgers
-        %li Spaghetti Carbonara
-
-.col-md-4
-  .panel.panel-primary
-    .panel-heading
-      %h3.panel-title Desserts
-
-    .panel-body
-      %ul
-        %li Fabulous Ice Cream
-        %li A bowl of fruit
-        %li Sweet melting Chocolate
+      .panel-body
+        %ul
+          - category.recipes.each do |recipe|
+            %li #{recipe.title}

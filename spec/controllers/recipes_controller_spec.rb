@@ -8,5 +8,13 @@ describe RecipesController do
       get :index
       expect(assigns(:categories)).to match_array([desserts, main_courses])
     end
-  end 
+  end
+
+  describe "GET search" do
+    it "sets @recipes variable to array when there is a match" do
+      recipe = Fabricate(:recipe, title: "Spaghetti")
+      get :search, recipe: "ghett"
+      expect(assigns(:recipes)).to eq([recipe])
+    end
+  end
 end
