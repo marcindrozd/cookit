@@ -12,4 +12,5 @@
       .panel-body
         %ul
           - category.recent_recipes.each do |recipe|
-            %li #{recipe.title}
+            %li
+              = link_to recipe.title, recipe
