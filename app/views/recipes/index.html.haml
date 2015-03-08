@@ -1,0 +1,15 @@
+= render '/shared/search'
+
+.category-title
+  %h2 Newest Recipes by Category:
+
+- @categories.each do |category|
+  .col-md-4
+    .panel.panel-primary
+      .panel-heading
+        %h3.panel-title #{category.name}
+
+      .panel-body
+        %ul
+          - category.recent_recipes.each do |recipe|
+            %li #{recipe.title}

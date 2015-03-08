@@ -1,0 +1,7 @@
+.row.search-bar
+  .col-md-8.col-md-offset-2
+    = form_tag search_recipes_path, method: "get", enforce_utf8: false do
+      .input-group
+        = text_field_tag(:recipe, nil, class: "form-control", placeholder: "Search for recipe...", value: params[:recipe])
+        %span.input-group-btn
+          %button(type="submit" class="btn btn-primary") Search
