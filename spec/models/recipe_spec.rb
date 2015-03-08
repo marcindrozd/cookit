@@ -5,7 +5,7 @@ describe Recipe do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:directions) }
   it { should validate_presence_of(:ingredients) }
-  it { should belong_to(:user) }
+  it { should belong_to(:creator) }
 
   describe ".search_by_title" do
     it "returns an empty array when there are no matches" do
