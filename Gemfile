@@ -9,8 +9,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.3'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'pg'
+gem 'bcrypt'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 group :production do

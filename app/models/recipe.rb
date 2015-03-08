@@ -1,6 +1,7 @@
 class Recipe < ActiveRecord::Base
   has_many :recipe_categories
   has_many :categories, through: :recipe_categories
+  belongs_to :user
 
   validates_presence_of :title, :directions, :ingredients
 
