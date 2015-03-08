@@ -1,0 +1,24 @@
+.col-md-12
+  %button(type="button" class="btn btn-primary favorites") + Add to favorites
+
+%h2.recipe-title #{@recipe.title}
+%h4.recipe-author by Mike Gonzalez
+
+.col-md-4
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Ingredients
+
+    .panel-body
+      %ul
+      - @recipe.ingredients_list.each do |ingredient|
+        %li #{ingredient}
+
+.col-md-8
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Directions
+
+    .panel-body
+      %p
+        = simple_format(@recipe.directions)

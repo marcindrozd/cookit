@@ -33,4 +33,21 @@ describe Recipe do
       expect(Recipe.search_by_title("")).to eq([])
     end
   end
+
+  describe "#ingredients_list" do
+    it "returns an array with one element if there is one ingredient" do
+      recipe = Fabricate(:recipe, ingredients: "Eggs")
+      expect(recipe.ingredients_list).to eq(["Eggs"])
+    end
+
+    it "returns an array with all elements when there are multiple ingredients" do
+      recipe = Fabricate(:recipe, ingredients: "Eggs; Mayo; Grated cheese; Ham")
+      expect(recipe.ingredients_list).to eq(["Eggs", "Mayo", "Grated cheese", "Ham"])
+    end
+
+    it "returns an array with all the elements when they are split by semicolon with no space" do
+      recipe = Fabricate(:recipe, ingredients: "Eggs;Mayo;Grated cheese;Ham")
+      expect(recipe.ingredients_list).to eq(["Eggs", "Mayo", "Grated cheese", "Ham"])
+    end  
+  end
 end

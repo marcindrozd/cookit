@@ -17,4 +17,12 @@ describe RecipesController do
       expect(assigns(:recipes)).to eq([recipe])
     end
   end
+
+  describe "GET show" do
+    it "sets @recipe variable" do
+      recipe = Fabricate(:recipe, title: "Spaghetti")
+      get :show, id: recipe.id
+      expect(assigns(:recipe)).to eq(recipe)
+    end
+  end
 end

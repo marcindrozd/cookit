@@ -8,4 +8,8 @@ class Recipe < ActiveRecord::Base
     return [] if search_title.blank?
     where("lower(title) like ?", "%#{search_title.downcase}%").order(created_at: :desc)
   end
+
+  def ingredients_list
+    ingredients.split(";").map(&:strip)
+  end
 end
