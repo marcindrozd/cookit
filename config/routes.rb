@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   post '/sign_in', to: "sessions#create"
   delete '/sign_out', to: "sessions#destroy"
 
-  resources :recipes, only: [:show] do
+  resources :recipes do
     collection do
       get '/search', to: "recipes#search"
     end
   end
 
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
 
   get 'ui(/:action)', controller: 'ui'
 end

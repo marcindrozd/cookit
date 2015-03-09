@@ -1,0 +1,31 @@
+.col-md-8.col-md-offset-2
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Recipes that I've created
+
+    .panel-body
+      %table.table
+        - current_user.recipes.each do |recipe|
+          %tr
+            %td #{recipe.title}
+            %td
+              = link_to "Edit", edit_recipe_path(recipe)
+            %td
+              = link_to "Delete", recipe, method: "delete", data: { confirm: "Are you sure?"}
+
+.col-md-8.col-md-offset-2
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Favorite recipes
+
+    .panel-body
+      %table.table
+        %tr
+          %td Prawn Cocktails
+          %td <a href="#">Remove from list</a>
+        %tr
+          %td Flaming Tapas
+          %td <a href="#">Remove from list</a>
+        %tr
+          %td Super Tasty Sandwiches
+          %td <a href="#">Remove from list</a>
