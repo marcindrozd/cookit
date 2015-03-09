@@ -11,8 +11,10 @@
   %body
     %header
       = render 'shared/header'
+      
     .container
       .row
+        = render 'shared/messages'
         = yield
     %hr
     %footer

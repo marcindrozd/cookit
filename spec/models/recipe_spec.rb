@@ -5,6 +5,7 @@ describe Recipe do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:directions) }
   it { should validate_presence_of(:ingredients) }
+  it { should belong_to(:creator) }
 
   describe ".search_by_title" do
     it "returns an empty array when there are no matches" do
@@ -48,6 +49,6 @@ describe Recipe do
     it "returns an array with all the elements when they are split by semicolon with no space" do
       recipe = Fabricate(:recipe, ingredients: "Eggs;Mayo;Grated cheese;Ham")
       expect(recipe.ingredients_list).to eq(["Eggs", "Mayo", "Grated cheese", "Ham"])
-    end  
+    end
   end
 end

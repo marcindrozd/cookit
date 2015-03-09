@@ -2,7 +2,7 @@
   %button(type="button" class="btn btn-primary favorites") + Add to favorites
 
 %h2.recipe-title #{@recipe.title}
-%h4.recipe-author by Mike Gonzalez
+%h4.recipe-author by #{@recipe.creator.full_name}
 
 .col-md-4
   .panel.panel-primary
