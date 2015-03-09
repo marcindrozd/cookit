@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/register', to: "users#new"
   get '/sign_in', to: "sessions#new"
   post '/sign_in', to: "sessions#create"
-  delete '/sign_in', to: "sessions#destroy"
+  delete '/sign_out', to: "sessions#destroy"
 
   resources :recipes, only: [:show] do
     collection do
