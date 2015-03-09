@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'recipes#index'
+  root 'pages#front'
 
   get '/home', to: "recipes#index"
 
