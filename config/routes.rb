@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:create, :show]
+  resources :favorites, only: [:create, :destroy]
 
   get 'ui(/:action)', controller: 'ui'
 end

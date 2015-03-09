@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :recipes
+  has_many :favorites
   has_secure_password
 
   validates_presence_of :full_name, :email_address, :password

@@ -6,4 +6,5 @@ describe User do
   it { should validate_presence_of(:password) }
   it { should validate_uniqueness_of(:email_address) }
   it { should have_many(:recipes) }
+  it { should have_many(:favorites) }
 end
