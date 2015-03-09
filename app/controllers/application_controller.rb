@@ -12,4 +12,20 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def require_user
+    if !logged_in?
+      redirect_to root_path
+      flash[:danger] = "You need to log in to do that!"
+    end
+  end
+
+  def can_edit?(recipe)
+    recipe.creator == current_user
+  end
+
+  def display_error
+    flash[:danger] = "You are not allowed to do that!"
+    redirect_to root_path
+  end
 end

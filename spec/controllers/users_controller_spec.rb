@@ -37,4 +37,11 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET show" do
+    it "redirects unauthenticated user to root path" do
+      get :show, id: Fabricate(:user).id
+      expect(response).to redirect_to root_path
+    end
+  end
 end

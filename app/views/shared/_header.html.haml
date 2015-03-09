@@ -5,9 +5,9 @@
   %ul.nav.navbar-nav.navbar-right
     - if logged_in?
       %li
-        %a + Create New Recipe
+        = link_to "+ Create New Recipe", new_recipe_path
       %li
-        %a My Recipes
+        = link_to "My Recipes", current_user
       %li
         = link_to "Sign Out", sign_out_path, method: "delete"
     - else
