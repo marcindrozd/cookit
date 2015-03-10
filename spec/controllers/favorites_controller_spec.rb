@@ -72,29 +72,27 @@ describe FavoritesController do
 
   describe "DELETE destroy" do
     context "for authenticated user" do
-      it "redirects to user's page" do
-        bob = Fabricate(:user)
+      let(:bob) { Fabricate(:user) }
+      let(:recipe) { Fabricate(:recipe)}
+
+      before do
         session[:user_id] = bob.id
-        recipe = Fabricate(:recipe)
+      end
+
+      it "redirects to user's page" do
         favorite = Favorite.create(recipe_id: recipe.id, user: bob)
         delete :destroy, id: favorite.id
         expect(response).to redirect_to bob
       end
 
       it "removes a recipe from the favorites" do
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
-        recipe = Fabricate(:recipe)
         favorite = Favorite.create(recipe_id: recipe.id, user: bob)
         delete :destroy, id: favorite.id
         expect(Favorite.count).to eq(0)
       end
 
       it "does not remove a recipe from other user's favorites" do
-        bob = Fabricate(:user)
         alice = Fabricate(:user)
-        session[:user_id] = bob.id
-        recipe = Fabricate(:recipe)
         favorite = Favorite.create(recipe_id: recipe.id, user: alice)
         delete :destroy, id: favorite.id
         expect(Favorite.count).to eq(1)
@@ -102,16 +100,15 @@ describe FavoritesController do
     end
 
     context "for unauthenticated user" do
+      let(:recipe) { Fabricate(:recipe) }
+      let(:favorite) { Favorite.create(recipe_id: recipe.id) }
+
       it "redirects to root path" do
-        recipe = Fabricate(:recipe)
-        favorite = Favorite.create(recipe_id: recipe.id)
         delete :destroy, id: favorite.id
         expect(response).to redirect_to root_path
       end
 
       it "displays error message" do
-        recipe = Fabricate(:recipe)
-        favorite = Favorite.create(recipe_id: recipe.id)
         delete :destroy, id: favorite.id
         expect(flash[:danger]).not_to be_blank
       end

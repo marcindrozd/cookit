@@ -67,18 +67,19 @@ describe RecipesController do
     end
 
     context "with unathenticated user" do
-      it "does not create a new recipe" do
+      before do
         post :create, recipe: Fabricate.attributes_for(:recipe)
+      end
+
+      it "does not create a new recipe" do
         expect(Recipe.count).to eq(0)
       end
 
       it "redirects to the root path" do
-        post :create, recipe: Fabricate.attributes_for(:recipe)
         expect(response).to redirect_to root_path
       end
 
       it "displays error message" do
-        post :create, recipe: Fabricate.attributes_for(:recipe)
         expect(flash[:danger]).not_to be_blank
       end
     end
@@ -98,9 +99,9 @@ describe RecipesController do
 
     context "with authenticated user who is not creator of the recipe" do
       let(:bob) { Fabricate(:user) }
+      let(:alice) { Fabricate(:user) }
 
       it "redirects to root path" do
-        alice = Fabricate(:user)
         session[:user_id] = bob.id
         recipe = Fabricate(:recipe, creator: alice)
         get :edit, id: recipe.id
@@ -108,7 +109,6 @@ describe RecipesController do
       end
 
       it "flashes an error message" do
-        alice = Fabricate(:user)
         session[:user_id] = bob.id
         recipe = Fabricate(:recipe, creator: alice)
         get :edit, id: recipe.id
@@ -127,9 +127,13 @@ describe RecipesController do
 
   describe "PATCH update" do
     context "with authenticated creator" do
-      it "updates the recipe" do
-        bob = Fabricate(:user)
+      let(:bob) { Fabricate(:user) }
+
+      before do
         session[:user_id] = bob.id
+      end
+
+      it "updates the recipe" do
         recipe = Fabricate(:recipe, creator: bob)
         patch :update, id: recipe.id, recipe: Fabricate.attributes_for(:recipe, title: "Pizza")
         expect(Recipe.first.title).to eq("Pizza")
@@ -138,16 +142,12 @@ describe RecipesController do
 
     context "with authenticated user who is not creator of the recipe" do
       it "does not update the recipe" do
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
         recipe = Fabricate(:recipe, creator: Fabricate(:user))
         patch :update, id: recipe.id, recipe: Fabricate.attributes_for(:recipe, title: "Pizza")
         expect(Recipe.first.title).not_to eq("Pizza")
       end
 
       it "redirects to root path" do
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
         recipe = Fabricate(:recipe, creator: Fabricate(:user))
         patch :update, id: recipe.id, recipe: Fabricate.attributes_for(:recipe, title: "Pizza")
         expect(response).to redirect_to root_path
