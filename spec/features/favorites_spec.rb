@@ -13,7 +13,6 @@ feature "Using favorites feature" do
     click_button('Sign in')
 
     visit home_path
-    save_and_open_page
     find("a[href='/recipes/#{pizza.id}']").click
     find("a[href='/favorites?recipe_id=#{pizza.id}']").click
 

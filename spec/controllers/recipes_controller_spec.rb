@@ -172,6 +172,16 @@ describe RecipesController do
         delete :destroy, id: recipe.id
         expect(Recipe.count).to eq(0)
       end
+
+      it "removes the recipe from other user's favorites" do
+        alice = Fabricate(:user)
+        bob = Fabricate(:user)
+        session[:user_id] = bob.id
+        recipe = Fabricate(:recipe, creator: bob)
+        Favorite.create(recipe_id: recipe.id, user: alice)
+        delete :destroy, id: recipe.id
+        expect(alice.favorites.count).to eq(0)
+      end
     end
 
     context "with authenticated user who is not creator of the recipe" do
