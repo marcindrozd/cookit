@@ -1,0 +1,7 @@
+- if content.errors.any?
+  .row
+    .alert.alert-danger.col-md-6.col-md-offset-3
+      %h5 There were some errors:
+      %ul
+      - content.errors.full_messages.each do |msg|
+        %li #{msg}
