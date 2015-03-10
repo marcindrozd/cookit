@@ -5,37 +5,36 @@ describe FavoritesController do
     context "with authenticated user" do
       let(:bob) { Fabricate(:user) }
 
+      before do
+        set_current_user(bob)
+      end
+
       it "redirects to current user profile page for signed in user" do
         recipe = Fabricate(:recipe)
-        session[:user_id] = bob.id
         post :create, recipe_id: recipe.id
         expect(response).to redirect_to bob
       end
 
       it "creates a new favorite recipe" do
         recipe = Fabricate(:recipe)
-        session[:user_id] = bob.id
         post :create, recipe_id: recipe.id
         expect(Favorite.count).to eq(1)
       end
 
       it "creates a new favorite for current recipe" do
         recipe = Fabricate(:recipe, title: "Pizza")
-        session[:user_id] = bob.id
         post :create, recipe_id: recipe.id
         expect(Favorite.first.recipe.title).to eq("Pizza")
       end
 
       it "creates a new favorite associated with current user" do
         recipe = Fabricate(:recipe)
-        session[:user_id] = bob.id
         post :create, recipe_id: recipe.id, user: bob
         expect(Favorite.first.user).to eq(bob)
       end
 
       it "does not add recipe to favorites if it is already in favorites" do
         recipe = Fabricate(:recipe)
-        session[:user_id] = bob.id
         Favorite.create(recipe_id: recipe.id, user: bob)
         post :create, recipe_id: recipe.id, user: bob
         expect(Favorite.count).to eq(1)
@@ -43,7 +42,6 @@ describe FavoritesController do
 
       it "does not add recipe to favorites if the current user is the recipe creator" do
         recipe = Fabricate(:recipe, creator: bob)
-        session[:user_id] = bob.id
         post :create, recipe_id: recipe.id, user: bob
         expect(Favorite.count).to eq(0)
       end
@@ -76,7 +74,7 @@ describe FavoritesController do
       let(:recipe) { Fabricate(:recipe)}
 
       before do
-        session[:user_id] = bob.id
+        set_current_user(bob)
       end
 
       it "redirects to user's page" do

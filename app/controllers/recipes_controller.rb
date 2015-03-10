@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   before_action :require_creator, only: [:edit, :update, :destroy]
 
   def index
-    @categories = Category.all
+    @categories = Category.all.order(:name)
   end
 
   def new
