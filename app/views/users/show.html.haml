@@ -7,11 +7,12 @@
       %table.table
         - current_user.recipes.each do |recipe|
           %tr
-            %td #{recipe.title}
+            %td
+              = link_to recipe.title, recipe
             %td
               = link_to "Edit", edit_recipe_path(recipe)
             %td
-              = link_to "Delete", recipe, method: "delete", data: { confirm: "Are you sure?"}
+              = link_to "Delete", recipe, method: "delete", data: { confirm: "Are you sure?" }
 
 .col-md-8.col-md-offset-2
   .panel.panel-primary
@@ -20,12 +21,9 @@
 
     .panel-body
       %table.table
-        %tr
-          %td Prawn Cocktails
-          %td <a href="#">Remove from list</a>
-        %tr
-          %td Flaming Tapas
-          %td <a href="#">Remove from list</a>
-        %tr
-          %td Super Tasty Sandwiches
-          %td <a href="#">Remove from list</a>
+        - current_user.favorites.each do |favorite|
+          %tr
+            %td
+              = link_to favorite.recipe_title, favorite.recipe
+            %td
+              = link_to "Remove from list", favorite_path(favorite), method: "delete", data: { confirm: "Are you sure?" }

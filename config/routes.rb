@@ -14,7 +14,12 @@ Rails.application.routes.draw do
     end
   end
 
+  scope "recipes" do
+    resources :categories, only: [:show]
+  end
+
   resources :users, only: [:create, :show]
+  resources :favorites, only: [:create, :destroy]
 
   get 'ui(/:action)', controller: 'ui'
 end
