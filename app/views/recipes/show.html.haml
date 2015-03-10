@@ -1,6 +1,7 @@
 .col-md-12
-  - if logged_in? && available_to_add(current_user, @recipe)
-    = link_to "+ Add to favorites", favorites_path(recipe_id: @recipe.id), method: "post", class: "btn btn-primary favorites"
+  - if logged_in? && current_user.can_add?(@recipe)
+    = link_to "+ Add to favorites", favorites_path(recipe_id: @recipe.id),
+    method: "post", class: "btn btn-primary favorites"
 
 %h2.recipe-title #{@recipe.title}
 %h4.recipe-author by #{@recipe.creator.full_name}

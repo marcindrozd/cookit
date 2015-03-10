@@ -26,4 +26,5 @@
             %td
               = link_to favorite.recipe_title, favorite.recipe
             %td
-              = link_to "Remove from list", favorite_path(favorite), method: "delete", data: { confirm: "Are you sure?" }
+              = link_to "Remove from list", favorite_path(favorite),
+              method: "delete", data: { confirm: "Are you sure?" }

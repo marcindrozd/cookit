@@ -60,7 +60,7 @@ describe SessionsController do
     let(:joe) { Fabricate(:user) }
 
     before do
-      session[:user_id] = joe.id
+      set_current_user(joe)
       delete :destroy
     end
 

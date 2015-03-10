@@ -28,7 +28,7 @@ describe RecipesController do
 
   describe "GET new" do
     it "creates new @recipe object" do
-      session[:user_id] = Fabricate(:user).id
+      set_current_user
       get :new
       expect(assigns(:recipe)).to be_instance_of(Recipe)
     end
@@ -38,14 +38,16 @@ describe RecipesController do
     context "with authenticated user" do
       let(:bob) { Fabricate(:user) }
 
+      before do
+        set_current_user(bob)
+      end
+
       it "creates a new recipe" do
-        session[:user_id] = bob.id
         post :create, recipe: Fabricate.attributes_for(:recipe)
         expect(Recipe.count).to eq(1)
       end
 
       it "creates a new recipe associated with current user" do
-        session[:user_id] = bob.id
         post :create, recipe: Fabricate.attributes_for(:recipe)
         expect(Recipe.first.creator).to eq(bob)
       end
@@ -53,13 +55,12 @@ describe RecipesController do
       it "adds correct categories to the new recipe" do
         desserts = Fabricate(:category, name: "Desserts")
         starters = Fabricate(:category, name: "Starters")
-        session[:user_id] = bob.id
-        post :create, recipe: Fabricate.attributes_for(:recipe, category_ids: [desserts.id, starters.id])
+        post :create, recipe: Fabricate.attributes_for(:recipe,
+                              category_ids: [desserts.id, starters.id])
         expect(Recipe.first.categories).to match_array([desserts, starters])
       end
 
       it "redirects to newly created recipe page" do
-        session[:user_id] = bob.id
         post :create, recipe: Fabricate.attributes_for(:recipe)
         recipe = Recipe.first
         expect(response).to redirect_to recipe
@@ -90,7 +91,7 @@ describe RecipesController do
       let(:bob) { Fabricate(:user) }
 
       it "assigns @recipe variable to existing recipe" do
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe)
         get :edit, id: recipe.id
         expect(assigns(:recipe)).to eq(recipe)
@@ -102,14 +103,14 @@ describe RecipesController do
       let(:alice) { Fabricate(:user) }
 
       it "redirects to root path" do
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe, creator: alice)
         get :edit, id: recipe.id
         expect(response).to redirect_to root_path
       end
 
       it "flashes an error message" do
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe, creator: alice)
         get :edit, id: recipe.id
         expect(flash[:danger]).not_to be_blank
@@ -130,7 +131,7 @@ describe RecipesController do
       let(:bob) { Fabricate(:user) }
 
       before do
-        session[:user_id] = bob.id
+        set_current_user(bob)
       end
 
       it "updates the recipe" do
@@ -164,19 +165,19 @@ describe RecipesController do
   end
 
   describe "DELETE destroy" do
+    let(:bob) { Fabricate(:user) }
+    let(:alice) { Fabricate(:user) }
+
     context "with authenticated creator" do
       it "destroys the recipe" do
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe, creator: bob)
         delete :destroy, id: recipe.id
         expect(Recipe.count).to eq(0)
       end
 
       it "removes the recipe from other user's favorites" do
-        alice = Fabricate(:user)
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe, creator: bob)
         Favorite.create(recipe_id: recipe.id, user: alice)
         delete :destroy, id: recipe.id
@@ -186,16 +187,14 @@ describe RecipesController do
 
     context "with authenticated user who is not creator of the recipe" do
       it "does not destroy the recipe" do
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe, creator: Fabricate(:user))
         delete :destroy, id: recipe.id
         expect(Recipe.count).to eq(1)
       end
 
       it "redirects to root path" do
-        bob = Fabricate(:user)
-        session[:user_id] = bob.id
+        set_current_user(bob)
         recipe = Fabricate(:recipe, creator: Fabricate(:user))
         delete :destroy, id: recipe.id
         expect(response).to redirect_to root_path
