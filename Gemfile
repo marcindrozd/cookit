@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem 'font-awesome-rails'
 gem 'pg'
 gem 'bcrypt'
+gem 'carrierwave'
 gem 'cloudinary'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 

@@ -21,7 +21,7 @@
       %h3.panel-title Photo
 
     .panel-body
-      = cl_image_tag("cookbook/sample.jpg", :alt => "Sample Image", :crop => :scale, class: "img-responsive")
+      = cl_image_tag(@recipe.picture, :alt => "Sample Image", :crop => :scale, class: "img-responsive")
 
 .col-md-8
   .panel.panel-primary

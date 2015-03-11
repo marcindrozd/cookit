@@ -21,6 +21,10 @@
                                     placeholder: "Step by step instructions"
 
         .form-group
+          = f.hidden_field(:picture_cache)
+          = f.file_field(:picture)
+
+        .form-group
           Categories:
           .checkbox
             = collection_check_boxes(:recipe, :category_ids, Category.all, :id, :name) do |cb|

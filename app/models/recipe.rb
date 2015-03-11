@@ -6,6 +6,8 @@ class Recipe < ActiveRecord::Base
 
   validates_presence_of :title, :directions, :ingredients
 
+  mount_uploader :picture, PictureUploader
+
   def self.search_by_title(search_title)
     return [] if search_title.blank?
     where("lower(title) like ?", "%#{search_title.downcase}%").order(created_at: :desc)
