@@ -7,20 +7,21 @@
     .panel-body
       = form_for @recipe do |f|
         .form-group
-          = f.label "Name of the dish:"
+          = f.label :title, "Name of the dish:"
           = f.text_field :title, class: "form-control", placeholder: "e.g. Greatest Pizza Ever"
 
         .form-group
-          = f.label "Ingredients:"
+          = f.label :ingredients, "Ingredients:"
           = f.text_area :ingredients, class: "form-control", rows: "4",
                         placeholder: "Ingredients separated by semicolon, e.g. two eggs; grated cheese;"
 
         .form-group
-          = f.label "Directions:"
+          = f.label :directions, "Directions:"
           = f.text_area :directions, class: "form-control", rows: "8",
                                     placeholder: "Step by step instructions"
 
         .form-group
+          = f.label :picture, "Add picture:"
           = f.hidden_field(:picture_cache)
           = f.file_field(:picture)
 
