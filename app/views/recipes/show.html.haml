@@ -16,6 +16,14 @@
       - @recipe.ingredients_list.each do |ingredient|
         %li #{ingredient}
 
+  .panel.panel-primary
+    .panel-heading
+      %h3.panel-title Photo
+
+    .panel-body
+      = cl_image_tag(show_image(@recipe), :alt => "Recipe Picture", :crop => :scale,
+                    class: "img-responsive")
+
 .col-md-8
   .panel.panel-primary
     .panel-heading
