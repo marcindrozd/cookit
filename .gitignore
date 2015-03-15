@@ -16,5 +16,4 @@
 /tmp
 
 /config/database.yml
-/config/cloudinary.yml
 /config/secrets.yml
