@@ -15,6 +15,8 @@ gem 'bcrypt'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
 
 group :production do
   gem 'rails_12factor'

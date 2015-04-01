@@ -11,10 +11,14 @@
   %body
     %header
       = render 'shared/header'
-      
+
     .container
       .row
         = render 'shared/messages'
+        %p.notice
+          = notice
+        %p.alert
+          = alert
         = yield
     %hr
     %footer
